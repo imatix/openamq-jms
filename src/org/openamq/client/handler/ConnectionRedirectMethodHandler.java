@@ -1,6 +1,7 @@
 package org.openamq.client.handler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.client.protocol.AMQMethodEvent;
 import org.openamq.client.state.AMQStateManager;
@@ -9,7 +10,7 @@ import org.openamq.framing.ConnectionRedirectBody;
 
 public class ConnectionRedirectMethodHandler implements StateAwareMethodListener
 {
-    private static final Logger _logger = Logger.getLogger(ConnectionRedirectMethodHandler.class);
+    private static final Logger _logger = LoggerFactory.getLogger(ConnectionRedirectMethodHandler.class);
 
     private static final int DEFAULT_REDIRECT_PORT = 5672;
 

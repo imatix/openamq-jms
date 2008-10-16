@@ -1,6 +1,7 @@
 package org.openamq.client.handler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.client.Version;
 import org.openamq.client.protocol.AMQMethodEvent;
@@ -24,7 +25,7 @@ import java.util.StringTokenizer;
 public class ConnectionStartMethodHandler implements StateAwareMethodListener
 {
 
-    private static final Logger _log = Logger.getLogger(ConnectionStartMethodHandler.class);
+    private static final Logger _log = LoggerFactory.getLogger(ConnectionStartMethodHandler.class);
 
     private static final ConnectionStartMethodHandler _instance = new ConnectionStartMethodHandler();
 

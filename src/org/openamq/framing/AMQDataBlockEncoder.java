@@ -1,6 +1,7 @@
 package org.openamq.framing;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ByteBuffer;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.demux.MessageEncoder;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 public class AMQDataBlockEncoder implements MessageEncoder
 {
-	Logger _logger = Logger.getLogger(AMQDataBlockEncoder.class);
+	Logger _logger = LoggerFactory.getLogger(AMQDataBlockEncoder.class);
 
     private Set _messageTypes;
 

@@ -1,11 +1,12 @@
 package org.openamq.framing;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ByteBuffer;
 
 public class AMQMethodBodyFactory implements BodyFactory
 {
-    private static final Logger _log = Logger.getLogger(AMQMethodBodyFactory.class);
+    private static final Logger _log = LoggerFactory.getLogger(AMQMethodBodyFactory.class);
     
     private static final AMQMethodBodyFactory _instance = new AMQMethodBodyFactory();
     

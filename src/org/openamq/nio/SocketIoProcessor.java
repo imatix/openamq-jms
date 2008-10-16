@@ -18,7 +18,8 @@
  */
 package org.openamq.nio;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ByteBuffer;
 import org.apache.mina.common.ExceptionMonitor;
 import org.apache.mina.common.IdleStatus;
@@ -42,7 +43,7 @@ import java.util.Set;
  */
 class SocketIoProcessor
 {
-    private static final Logger _logger = Logger.getLogger(SocketIoProcessor.class);
+    private static final Logger _logger = LoggerFactory.getLogger(SocketIoProcessor.class);
 
     private static final String PROCESSORS_PROPERTY = "mina.socket.processors";
     private static final String THREAD_PREFIX = "SocketIoProcessor-";

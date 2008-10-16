@@ -13,7 +13,7 @@ public abstract class Closeable
      * We use an atomic boolean so that we do not have to synchronized access to this flag. Synchronizing
      * access to this flag would mean have a synchronized block in every method.
      */
-    protected final AtomicBoolean _closed = new AtomicBoolean(false);
+    protected AtomicBoolean _closed = new AtomicBoolean(false);
 
     protected void checkNotClosed()
     {

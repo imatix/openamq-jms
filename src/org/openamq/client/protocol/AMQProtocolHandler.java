@@ -1,8 +1,9 @@
 package org.openamq.client.protocol;
 
-import edu.emory.mathcs.backport.java.util.concurrent.CopyOnWriteArraySet;
-import edu.emory.mathcs.backport.java.util.concurrent.CountDownLatch;
-import org.apache.log4j.Logger;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.CountDownLatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.IdleStatus;
 import org.apache.mina.common.IoHandlerAdapter;
 import org.apache.mina.common.IoSession;
@@ -22,7 +23,7 @@ import java.util.Iterator;
 
 public class AMQProtocolHandler extends IoHandlerAdapter
 {
-    private static final Logger _logger = Logger.getLogger(AMQProtocolHandler.class);
+    private static final Logger _logger = LoggerFactory.getLogger(AMQProtocolHandler.class);
 
     /**
      * The connection that this protocol handler is associated with. There is a 1-1

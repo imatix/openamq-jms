@@ -1,13 +1,14 @@
 package org.openamq.client.protocol;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.client.AMQConnection;
 
 import javax.jms.JMSException;
 
 public abstract class FailoverSupport
 {
-    private static final Logger _log = Logger.getLogger(FailoverSupport.class);
+    private static final Logger _log = LoggerFactory.getLogger(FailoverSupport.class);
 
     public Object execute(AMQConnection con) throws JMSException
     {

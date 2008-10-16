@@ -1,6 +1,7 @@
 package org.openamq.pool;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.IdleStatus;
 import org.apache.mina.common.IoFilterAdapter;
 import org.apache.mina.common.IoSession;
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentMap;
 
 public class PoolingFilter extends IoFilterAdapter implements Job.JobCompletionHandler
 {
-    private static final Logger _logger = Logger.getLogger(PoolingFilter.class);
+    private static final Logger _logger = LoggerFactory.getLogger(PoolingFilter.class);
     public static final Set<EventType> READ_EVENTS = new HashSet<EventType>(Arrays.asList(EventType.RECEIVED));
     public static final Set<EventType> WRITE_EVENTS = new HashSet<EventType>(Arrays.asList(EventType.WRITE));
 

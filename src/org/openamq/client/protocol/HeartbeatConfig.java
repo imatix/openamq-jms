@@ -1,10 +1,11 @@
 package org.openamq.client.protocol;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class HeartbeatConfig
 {
-    private static final Logger _logger = Logger.getLogger(HeartbeatConfig.class);
+    private static final Logger _logger = LoggerFactory.getLogger(HeartbeatConfig.class);
     static final HeartbeatConfig CONFIG = new HeartbeatConfig();
 
     /**

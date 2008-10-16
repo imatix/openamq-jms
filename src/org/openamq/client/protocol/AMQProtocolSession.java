@@ -2,7 +2,8 @@ package org.openamq.client.protocol;
 
 import edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap;
 import edu.emory.mathcs.backport.java.util.concurrent.ConcurrentMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.common.WriteFuture;
 import org.apache.mina.common.IdleStatus;
@@ -27,7 +28,7 @@ import javax.security.sasl.SaslClient;
  */
 public class AMQProtocolSession
 {
-    private static final Logger _logger = Logger.getLogger(AMQProtocolSession.class);
+    private static final Logger _logger = LoggerFactory.getLogger(AMQProtocolSession.class);
 
     public static final String PROTOCOL_INITIATION_RECEIVED = "ProtocolInitiatiionReceived";
 

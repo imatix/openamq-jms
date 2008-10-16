@@ -1,6 +1,7 @@
 package org.openamq.pool;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.IoFilter;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.common.IdleStatus;
@@ -15,7 +16,7 @@ enum EventType
 
 class Event
 {
-    private static final Logger _log = Logger.getLogger(Event.class);
+    private static final Logger _log = LoggerFactory.getLogger(Event.class);
 
     private final EventType type;
     private final IoFilter.NextFilter nextFilter;

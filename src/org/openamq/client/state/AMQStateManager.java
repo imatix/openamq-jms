@@ -1,7 +1,8 @@
 package org.openamq.client.state;
 
 import edu.emory.mathcs.backport.java.util.concurrent.CopyOnWriteArraySet;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.framing.AMQMethodBody;
 import org.openamq.client.protocol.*;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 public class AMQStateManager implements AMQMethodListener
 {
-    private static final Logger _logger = Logger.getLogger(AMQStateManager.class);
+    private static final Logger _logger = LoggerFactory.getLogger(AMQStateManager.class);
 
     /**
      * The current state

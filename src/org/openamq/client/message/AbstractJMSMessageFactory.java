@@ -4,7 +4,8 @@ import org.openamq.AMQException;
 import org.openamq.framing.ContentHeaderBody;
 import org.openamq.framing.ContentBody;
 import org.openamq.framing.BasicContentHeaderProperties;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ByteBuffer;
 
 import javax.jms.JMSException;
@@ -13,7 +14,7 @@ import java.util.Iterator;
 
 public abstract class AbstractJMSMessageFactory implements MessageFactory
 {
-    private static final Logger _logger = Logger.getLogger(AbstractJMSMessageFactory.class);
+    private static final Logger _logger = LoggerFactory.getLogger(AbstractJMSMessageFactory.class);
 
 
     protected abstract AbstractJMSMessage createMessage(long messageNbr, ByteBuffer data,

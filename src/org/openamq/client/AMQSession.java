@@ -2,7 +2,8 @@ package org.openamq.client;
 
 import edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap;
 import edu.emory.mathcs.backport.java.util.concurrent.atomic.AtomicBoolean;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQDisconnectedException;
 import org.openamq.AMQException;
 import org.openamq.AMQUndeliveredException;
@@ -28,7 +29,7 @@ import java.util.Map;
 
 public class AMQSession extends Closeable implements Session, QueueSession, TopicSession
 {
-    private static final Logger _logger = Logger.getLogger(AMQSession.class);
+    private static final Logger _logger = LoggerFactory.getLogger(AMQSession.class);
 
     public static final int DEFAULT_PREFETCH = 5000;
 
@@ -831,15 +832,41 @@ public class AMQSession extends Closeable implements Session, QueueSession, Topi
         declareExchange(name, type, _connection.getProtocolHandler());
     }
 
+    public void declareExchange(String name, String type, boolean durable, boolean autoDelete) throws AMQException
+    {
+        declareExchange(name, type, durable, autoDelete, _connection.getProtocolHandler());
+    }
+
     private void declareExchange(AMQDestination amqd, AMQProtocolHandler protocolHandler) throws AMQException
     {
-        declareExchange(amqd.getExchangeName(), amqd.getExchangeClass(), protocolHandler);
+        declareExchange(amqd.getExchangeName(), amqd.getExchangeClass(), amqd.getExchangeDurable(), amqd.getExchangeAutoDelete(), protocolHandler);
     }
 
     private void declareExchange(String name, String type, AMQProtocolHandler protocolHandler) throws AMQException
     {
         AMQFrame exchangeDeclare = ExchangeDeclareBody.createAMQFrame(_channelId, 0, name, type, false, false, false, false, true, null);
         protocolHandler.writeFrame(exchangeDeclare);
+    }
+
+    private void declareExchange(String name, String type, boolean durable, boolean autoDelete, AMQProtocolHandler protocolHandler) throws AMQException
+    {
+        AMQFrame exchangeDeclare = ExchangeDeclareBody.createAMQFrame(_channelId, 0, name, type, false, durable, autoDelete, false, true, null);
+        protocolHandler.writeFrame(exchangeDeclare);
+    }
+
+    /**
+     * Declare the queue.
+     * @param name The queue name
+     * @param durable true if the queue should survive server restart
+     * @param exclusive true if the queue should only permit a single consumer
+     * @param autoDelete true if the queue should be deleted automatically when the last consumers detaches
+     * @param protocolHandler
+     * @return the queue name. This is useful where the broker is generating a queue name on behalf of the client.
+     * @throws AMQException
+     */
+    public String declareQueue(String name, boolean durable, boolean exclusive, boolean autoDelete) throws AMQException
+    {
+        return declareQueue(new AMQQueue(name, name, durable, exclusive, autoDelete), _connection.getProtocolHandler());
     }
 
     /**
@@ -854,10 +881,11 @@ public class AMQSession extends Closeable implements Session, QueueSession, Topi
         //BLZ-24: For queues (but not topics) we generate the name in the client rather than the
         //        server. This allows the name to be reused on failover if required. In general,
         //        the destination indicates whether it wants a name generated or not.
-        if(amqd.isNameRequired())
+        if((amqd.getQueueName() == null || amqd.getQueueName().equals("")) || amqd.isNameRequired())
         {
             amqd.setQueueName(protocolHandler.generateQueueName());
         }
+        _logger.debug("Declaring queue: " + amqd.getQueueName());
 
         AMQFrame queueDeclare = QueueDeclareBody.createAMQFrame(_channelId, 0, amqd.getQueueName(),
                                                                 false, amqd.isDurable(), amqd.isExclusive(),
@@ -1081,11 +1109,19 @@ public class AMQSession extends Closeable implements Session, QueueSession, Topi
      */
     void registerConsumer(BasicMessageConsumer consumer) throws AMQException
     {
+        registerConsumer(consumer, true);
+    }
+
+    void registerConsumer(BasicMessageConsumer consumer, boolean createExchange) throws AMQException
+    {
         AMQDestination amqd = consumer.getDestination();
 
         AMQProtocolHandler protocolHandler = _connection.getProtocolHandler();
 
-        declareExchange(amqd, protocolHandler);
+        if (createExchange)
+        {
+            declareExchange(amqd, protocolHandler);
+        }
 
         String queueName = declareQueue(amqd, protocolHandler);
 

@@ -1,6 +1,7 @@
 package org.openamq.client.handler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.client.protocol.AMQMethodEvent;
 import org.openamq.client.protocol.AMQProtocolSession;
@@ -12,7 +13,7 @@ import org.openamq.framing.ConnectionOpenOkBody;
 public class ConnectionOpenOkMethodHandler implements StateAwareMethodListener
 {
 
-    private static final Logger _logger = Logger.getLogger(ConnectionOpenOkMethodHandler.class);
+    private static final Logger _logger = LoggerFactory.getLogger(ConnectionOpenOkMethodHandler.class);
 
     private static final ConnectionOpenOkMethodHandler _instance = new ConnectionOpenOkMethodHandler();
 

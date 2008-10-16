@@ -1,6 +1,7 @@
 package org.openamq.client;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ByteBuffer;
 import org.openamq.client.protocol.AMQProtocolHandler;
 import org.openamq.client.state.listener.SpecificMethodFrameListener;
@@ -14,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 public class BasicMessageProducer extends Closeable implements org.openamq.jms.MessageProducer
 {
-    protected final Logger _logger = Logger.getLogger(getClass());
+    protected final Logger _logger = LoggerFactory.getLogger(getClass());
 
     private AMQConnection _connection;
 

@@ -1,6 +1,7 @@
 package org.openamq.client.security;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
@@ -9,7 +10,7 @@ public class CallbackHandlerRegistry
 {
     private static final String FILE_PROPERTY = "amq.callbackhandler.properties";
 
-    private static final Logger _logger = Logger.getLogger(CallbackHandlerRegistry.class);
+    private static final Logger _logger = LoggerFactory.getLogger(CallbackHandlerRegistry.class);
 
     private static CallbackHandlerRegistry _instance = new CallbackHandlerRegistry();
 

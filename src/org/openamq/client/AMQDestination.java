@@ -16,10 +16,6 @@ public abstract class AMQDestination implements Destination
 
     public final static String HEADERS_EXCHANGE_CLASS = "headers";
 
-    protected final String _exchangeName;
-
-    protected final String _exchangeClass;
-
     protected final String _destinationName;
 
     protected boolean _isDurable;
@@ -30,18 +26,36 @@ public abstract class AMQDestination implements Destination
 
     protected String _queueName;
 
+    protected String _exchangeName;
+
+    protected String _exchangeClass;
+
+    protected final boolean _isExchangeDurable;
+
+    protected final boolean _isExchangeAutoDelete;
+
     protected AMQDestination(String exchangeName, String exchangeClass, String destinationName, String queueName)
     {
-        this(exchangeName, exchangeClass, destinationName, false, false, queueName);
+        this(exchangeName, exchangeClass, false, false, destinationName, false, false, false, queueName);
     }
 
     protected AMQDestination(String exchangeName, String exchangeClass, String destinationName)
     {
-        this(exchangeName, exchangeClass, destinationName, false, false, null);
+        this(exchangeName, exchangeClass, false, false, destinationName, false, false, true, destinationName);
     }
 
     protected AMQDestination(String exchangeName, String exchangeClass, String destinationName, boolean isExclusive,
                              boolean isAutoDelete, String queueName)
+    {
+        this(exchangeName, exchangeClass, false, false, destinationName, false, isExclusive, isAutoDelete, queueName);
+    }
+
+    protected AMQDestination(String exchangeName, String exchangeClass, String destinationName, boolean isDurable, boolean isExclusive, boolean isAutoDelete, String queueName)
+    {
+        this(exchangeName, exchangeClass, false, false, destinationName, isDurable, isExclusive, isAutoDelete, queueName);
+    }
+
+    protected AMQDestination(String exchangeName, String exchangeClass, boolean isExchangeDurable, boolean isExchangeAutoDelete, String destinationName, boolean isDurable, boolean isExclusive, boolean isAutoDelete, String queueName)
     {
         if (destinationName == null)
         {
@@ -61,6 +75,9 @@ public abstract class AMQDestination implements Destination
         _isExclusive = isExclusive;
         _isAutoDelete = isAutoDelete;
         _queueName = queueName;
+        _isDurable = isDurable;
+        _isExchangeDurable = isExchangeDurable;
+        _isExchangeAutoDelete = isExchangeAutoDelete;
     }
 
     public abstract String getEncodedName();
@@ -80,14 +97,34 @@ public abstract class AMQDestination implements Destination
         return _exchangeClass;
     }
 
+    public boolean getExchangeDurable()
+    {
+        return _isExchangeDurable;
+    }
+
+    public boolean getExchangeAutoDelete()
+    {
+        return _isExchangeAutoDelete;
+    }
+
+    public void setExchangeName(String exchangeName)
+    {
+        _exchangeName = exchangeName;
+    }
+
+    public void setExchangeClass(String exchangeClass)
+    {
+        _exchangeClass = exchangeClass;
+    }
+
     public boolean isTopic()
     {
-    	return TOPIC_EXCHANGE_NAME.equals(_exchangeName);
+        return TOPIC_EXCHANGE_CLASS.equals(_exchangeClass);
     }
 
     public boolean isQueue()
     {
-        return QUEUE_EXCHANGE_NAME.equals(_exchangeName);
+        return QUEUE_EXCHANGE_CLASS.equals(_exchangeClass);
     }
 
     public String getDestinationName()
@@ -115,6 +152,16 @@ public abstract class AMQDestination implements Destination
     public boolean isAutoDelete()
     {
         return _isAutoDelete;
+    }
+
+    public boolean isExchangeDurable()
+    {
+        return _isExchangeDurable;
+    }
+
+    public boolean isExchangeAutoDelete()
+    {
+        return _isExchangeAutoDelete;
     }
 
     public abstract boolean isNameRequired();

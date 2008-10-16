@@ -1,6 +1,7 @@
 package org.openamq.client.handler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.client.ConnectionTuneParameters;
 import org.openamq.client.protocol.AMQMethodEvent;
@@ -15,7 +16,7 @@ import org.openamq.framing.AMQFrame;
 
 public class ConnectionTuneMethodHandler implements StateAwareMethodListener
 {
-    private static final Logger _logger = Logger.getLogger(ConnectionTuneMethodHandler.class);
+    private static final Logger _logger = LoggerFactory.getLogger(ConnectionTuneMethodHandler.class);
 
     private static final ConnectionTuneMethodHandler _instance = new ConnectionTuneMethodHandler();
 

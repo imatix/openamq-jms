@@ -1,7 +1,8 @@
 package org.openamq.client.security;
 
-import org.apache.log4j.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.security.sasl.SaslClientFactory;
 import java.io.*;
 import java.util.Properties;
@@ -14,7 +15,7 @@ public class DynamicSaslRegistrar
 {
     private static final String FILE_PROPERTY = "amq.dynamicsaslregistrar.properties";
 
-    private static final Logger _logger = Logger.getLogger(DynamicSaslRegistrar.class);
+    private static final Logger _logger = LoggerFactory.getLogger(DynamicSaslRegistrar.class);
 
     public static void registerSaslProviders()
     {

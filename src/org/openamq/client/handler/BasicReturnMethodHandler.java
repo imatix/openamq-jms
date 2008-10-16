@@ -1,6 +1,7 @@
 package org.openamq.client.handler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.client.message.UnprocessedMessage;
 import org.openamq.client.protocol.AMQMethodEvent;
@@ -10,7 +11,7 @@ import org.openamq.framing.BasicReturnBody;
 
 public class BasicReturnMethodHandler implements StateAwareMethodListener
 {
-    private static final Logger _logger = Logger.getLogger(BasicReturnMethodHandler.class);
+    private static final Logger _logger = LoggerFactory.getLogger(BasicReturnMethodHandler.class);
 
     private static final BasicReturnMethodHandler _instance = new BasicReturnMethodHandler();
 

@@ -2,7 +2,8 @@ package org.openamq.client.protocol;
 
 import org.apache.mina.common.IoFilterAdapter;
 import org.apache.mina.common.IoSession;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A MINA filter that monitors the numbers of messages pending to be sent by MINA. It outputs a message
@@ -12,7 +13,7 @@ import org.apache.log4j.Logger;
  */
 public class ProtocolBufferMonitorFilter extends IoFilterAdapter
 {
-    private static final Logger _logger = Logger.getLogger(ProtocolBufferMonitorFilter.class);
+    private static final Logger _logger = LoggerFactory.getLogger(ProtocolBufferMonitorFilter.class);
 
     public static long DEFAULT_FREQUENCY = 5000;
 

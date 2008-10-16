@@ -1,6 +1,7 @@
 package org.openamq.client.transport;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ConnectFuture;
 import org.apache.mina.common.ByteBuffer;
 import org.apache.mina.common.SimpleByteBufferAllocator;
@@ -16,7 +17,7 @@ import java.net.InetSocketAddress;
 
 public class SocketTransportConnection implements ITransportConnection
 {
-    private static final Logger _logger = Logger.getLogger(SocketTransportConnection.class);
+    private static final Logger _logger = LoggerFactory.getLogger(SocketTransportConnection.class);
 
     public void connect(AMQProtocolHandler protocolHandler, AMQConnection.BrokerDetail brokerDetail)
             throws IOException
@@ -47,7 +48,8 @@ public class SocketTransportConnection implements ITransportConnection
         scfg.setSendBufferSize(Integer.getInteger("amqj.sendBufferSize", 32768));
         scfg.setReceiveBufferSize(Integer.getInteger("amqj.receiveBufferSize", 32768));
         final InetSocketAddress address = new InetSocketAddress(brokerDetail.host, brokerDetail.port);
-        _logger.info("Attempting connection to " + address);
+        _logger.info("Attempting connection to " + address.getHostName() + ":" + Integer.toString(address.getPort()));
+        ioConnector.setWorkerTimeout(3);
         ConnectFuture future = ioConnector.connect(address, protocolHandler);
         // wait for connection to complete
         future.join();

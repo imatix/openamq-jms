@@ -1,6 +1,7 @@
 package org.openamq.client;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.AMQUndeliveredException;
 import org.openamq.client.protocol.AMQProtocolHandler;
@@ -10,6 +11,7 @@ import org.openamq.client.state.listener.SpecificMethodFrameListener;
 import org.openamq.client.transport.TransportConnection;
 import org.openamq.framing.AMQFrame;
 import org.openamq.framing.BasicQosBody;
+import org.openamq.framing.BasicQosOkBody;
 import org.openamq.framing.ChannelOpenBody;
 import org.openamq.framing.ChannelOpenOkBody;
 import org.openamq.framing.TxSelectBody;
@@ -42,7 +44,7 @@ import java.util.StringTokenizer;
 
 public class AMQConnection extends Closeable implements Connection, QueueConnection, TopicConnection
 {
-    private static final Logger _logger = Logger.getLogger(AMQConnection.class);
+    private static final Logger _logger = LoggerFactory.getLogger(AMQConnection.class);
 
     private final IdFactory _idFactory = new IdFactory();
 
@@ -380,7 +382,7 @@ public class AMQConnection extends Closeable implements Connection, QueueConnect
                         _protocolHandler.writeCommandFrameAndWaitForReply(frame,
                                                                           new SpecificMethodFrameListener(channelId,
                                                                                                           ChannelOpenOkBody.class));
-                        _protocolHandler.writeFrame(BasicQosBody.createAMQFrame(channelId, 0, prefetch, false));
+                        _protocolHandler.writeCommandFrameAndWaitForReply(BasicQosBody.createAMQFrame(channelId, 0, prefetch, false), new SpecificMethodFrameListener(channelId, BasicQosOkBody.class));
                         if(transacted)
                         {
                             if (_logger.isDebugEnabled())

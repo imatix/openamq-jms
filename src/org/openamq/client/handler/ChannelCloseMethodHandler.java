@@ -1,6 +1,7 @@
 package org.openamq.client.handler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQChannelClosedException;
 import org.openamq.AMQException;
 import org.openamq.client.protocol.AMQConstant;
@@ -13,7 +14,7 @@ import org.openamq.framing.ChannelCloseOkBody;
 
 public class ChannelCloseMethodHandler implements StateAwareMethodListener
 {
-    private static final Logger _logger = Logger.getLogger(ChannelCloseMethodHandler.class);
+    private static final Logger _logger = LoggerFactory.getLogger(ChannelCloseMethodHandler.class);
 
     private static ChannelCloseMethodHandler _handler = new ChannelCloseMethodHandler();
 

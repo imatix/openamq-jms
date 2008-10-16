@@ -4,7 +4,8 @@ import edu.emory.mathcs.backport.java.util.concurrent.SynchronousQueue;
 import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
 import edu.emory.mathcs.backport.java.util.concurrent.atomic.AtomicBoolean;
 import edu.emory.mathcs.backport.java.util.concurrent.atomic.AtomicReference;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 import org.openamq.client.message.MessageFactoryRegistry;
 import org.openamq.client.message.UnprocessedMessage;
@@ -22,7 +23,7 @@ import javax.jms.MessageListener;
 
 public class BasicMessageConsumer extends Closeable implements MessageConsumer
 {
-    private static final Logger _logger = Logger.getLogger(BasicMessageConsumer.class);
+    private static final Logger _logger = LoggerFactory.getLogger(BasicMessageConsumer.class);
 
     /**
      * The connection being used by this consumer

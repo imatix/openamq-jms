@@ -1,13 +1,14 @@
 package org.openamq.framing;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ByteBuffer;
 
 import java.nio.charset.Charset;
 
 public class EncodingUtils
 {
-	private static final Logger _logger = Logger.getLogger(EncodingUtils.class);
+	private static final Logger _logger = LoggerFactory.getLogger(EncodingUtils.class);
 
     private static final String STRING_ENCODING = "iso8859-15";
 

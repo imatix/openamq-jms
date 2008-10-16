@@ -1,6 +1,7 @@
 package org.openamq.framing;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mina.common.ByteBuffer;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 public class AMQDataBlockDecoder
 {
-	Logger _logger = Logger.getLogger(AMQDataBlockDecoder.class);
+	Logger _logger = LoggerFactory.getLogger(AMQDataBlockDecoder.class);
 
     private final Map _supportedBodies = new HashMap();
 

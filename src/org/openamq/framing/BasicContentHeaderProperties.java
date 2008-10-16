@@ -1,11 +1,12 @@
 package org.openamq.framing;
 
 import org.apache.mina.common.ByteBuffer;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BasicContentHeaderProperties implements ContentHeaderProperties
 {
-    private static final Logger _logger = Logger.getLogger(BasicContentHeaderProperties.class);
+    private static final Logger _logger = LoggerFactory.getLogger(BasicContentHeaderProperties.class);
 
     /**
      * We store the encoded form when we decode the content header so that if we need to
