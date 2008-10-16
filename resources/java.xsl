@@ -133,7 +133,8 @@ Wrote MethodBodyDecoderRegistry.java
 
 import java.util.Map;
 import java.util.HashMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openamq.AMQException;
 
 /**
@@ -141,7 +142,7 @@ import org.openamq.AMQException;
  */
 public final class MethodBodyDecoderRegistry
 {
-    private static final Logger _log = Logger.getLogger(MethodBodyDecoderRegistry.class);
+    private static final Logger _log = LoggerFactory.getLogger(MethodBodyDecoderRegistry.class);
 
     private static final Map _classMethodProductToMethodBodyMap = new HashMap();
 

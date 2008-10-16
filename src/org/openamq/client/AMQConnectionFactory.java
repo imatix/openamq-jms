@@ -1,4 +1,4 @@
-package org.openamq.client;
+package org.openamq.client;
 
 import org.openamq.AMQException;
 
